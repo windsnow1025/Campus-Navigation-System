@@ -9,10 +9,10 @@ void printPath(int prev[], int i, char* names[]) {
         return;
     }
     printPath(prev, prev[i], names);
+    if (prev[i] != -1) {
+		printf(" -> ");
+	}
     printf("%s", names[i]);
-    if (i != -1) {
-        printf(" -> ");
-    }
 }
 
 void dijkstra(int graph[N][N], int start, char* names[N]) {
@@ -28,6 +28,7 @@ void dijkstra(int graph[N][N], int start, char* names[N]) {
     for (i = 0; i < N; i++) {
         int minDist = I;
         int minIndex;
+        // Find the vertex with the minimum distance
         for (j = 0; j < N; j++) {
             if (!visited[j] && dist[j] < minDist) {
                 minDist = dist[j];
@@ -35,6 +36,7 @@ void dijkstra(int graph[N][N], int start, char* names[N]) {
             }
         }
         visited[minIndex] = 1;
+        // Update the distance of the adjacent vertices
         for (j = 0; j < N; j++) {
             if (!visited[j] && graph[minIndex][j] && dist[minIndex] + graph[minIndex][j] < dist[j]) {
                 dist[j] = dist[minIndex] + graph[minIndex][j];
@@ -73,6 +75,7 @@ int main() {
         {I, I, I, I, I, I, I, 8, I, I, 4, 0, 1},
         {I, I, I, I, I, I, I, 8, I, I, 4, 1, 0}
     };
+    // 580门，五教，光电楼，图书馆，计算中心，三公寓，五食堂，毛像，一教，516门，334门，操场，思餐厅
     char* names[N] = { "580 Gate", "Building 5", "Optoelectronics Building", "Library", "Computing Center", "Dormitory 3", "Cafeteria 5", "Mao Statue", "Building 1", "516 Gate", "334 Gate", "Playground", "Si Cafeteria" };
 
     int choice;
@@ -81,6 +84,7 @@ int main() {
         printf("Menu:\n1. Query department information\n2. Get the best route from the school gate to each department\n3. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
+        while ((getchar()) != '\n');
         switch (choice) {
         case 1:
             printDepartments(names);
@@ -89,15 +93,16 @@ int main() {
             printf("Choose the gate:\n1. 580 Gate\n2. 516 Gate\n3. 334 Gate\n");
             int gate;
             scanf("%d", &gate);
+            while ((getchar()) != '\n');
             switch (gate) {
             case 1:
-                dijkstra(graph, 0, names); // 580 Gate is at index 0
+                dijkstra(graph, 0, names); // 580 Gate
                 break;
             case 2:
-                dijkstra(graph, 9, names); // 516 Gate is at index 9
+                dijkstra(graph, 9, names); // 516 Gate
                 break;
             case 3:
-                dijkstra(graph, 10, names); // 334 Gate is at index 10
+                dijkstra(graph, 10, names); // 334 Gate
                 break;
             default:
                 printf("Invalid choice. Please try again.\n");
