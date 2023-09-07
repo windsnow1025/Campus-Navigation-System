@@ -18,7 +18,7 @@ void printPath(int prev[], int i, char* names[]) {
 }
 
 void printDepartments(char* names[N]) {
-    printf("Departments:\n");
+    printf("部门:\n");
     for (int i = 0; i < N; i++) {
         printf("%d. %s\n", i + 1, names[i]);
     }
@@ -69,7 +69,7 @@ void dijkstra(int graph[N][N], int start, char* names[N]) {
             }
         }
     }
-    printf("%-24s\tDistance\t\tPath\n", "Vertex");
+    printf("%-24s\t距离\t\t路径\n", "顶点");
     for (i = 0; i < N; i++) {
         printf("%-24s\t%d\t\t", names[i], dist[i]);
         printPath(prev, i, names);
@@ -118,14 +118,13 @@ int main() {
     // };
     int graph[N][N];
     routeToGraph(route, graph);
-    // 580门，五教，光电楼，图书馆，计算中心，三公寓，五食堂，毛像，一教，516门，334门，操场，思餐厅
-    char* names[N] = { "580 Gate", "Building 5", "Optoelectronics Building", "Library", "Computing Center", "Dormitory 3", "Cafeteria 5", "Mao Statue", "Building 1", "516 Gate", "334 Gate", "Playground", "Si Cafeteria" };
+    char* names[N] = { "580门", "五教", "光电楼", "图书馆", "计算中心", "三公寓", "五食堂", "毛像", "一教", "516门", "334门", "操场", "思餐厅" };
 
     int choice;
     while (1) {
         system("cls");
-        printf("Menu:\n1. Query department information\n2. Get the best route from the school gate to each department\n3. Exit\n");
-        printf("Enter your choice: ");
+        printf("菜单:\n1. 查询部门信息\n2. 获取校门到各部门的最佳路线\n3. 退出\n");
+        printf("请输入你的选择: ");
         scanf("%d", &choice);
         while ((getchar()) != '\n');
         switch (choice) {
@@ -133,7 +132,7 @@ int main() {
             printDepartments(names);
             break;
         case 2:
-            printf("1. 580 Gate, 2. 516 Gate, 3. 334 Gate\nChoose the gate: ");
+            printf("1. 580门, 2. 516门, 3. 334门\n选择校门: ");
             int gate;
             scanf("%d", &gate);
             while ((getchar()) != '\n');
@@ -148,13 +147,13 @@ int main() {
                 dijkstra(graph, 10, names); // 334 Gate
                 break;
             default:
-                printf("Invalid choice. Please try again.\n");
+                printf("无效的选择. 请重新输入.\n");
             }
             break;
         case 3:
             return 0;
         default:
-            printf("Invalid choice. Please try again.\n");
+            printf("无效的选择. 请重新输入.\n");
         }
         system("pause");
     }
