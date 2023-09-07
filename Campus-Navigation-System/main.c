@@ -1,4 +1,5 @@
 ﻿#include <stdio.h>
+#include <stdlib.h>
 #define I 999999 // INF
 #define R 21 // Routes
 #define N 13 // Nodes
