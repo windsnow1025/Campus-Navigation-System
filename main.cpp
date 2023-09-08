@@ -102,6 +102,7 @@ int main() {
         {10, 12, 4},
         {11, 12, 1}
     };
+    int graph[N][N];
 //     int graph[N][N] = {
 //         {0, 2, 6, I, I, I, I, I, I, 1, I, I, I},
 //         {2, 0, 5, I, I, I, I, I, I, I, I, I, I},
@@ -117,7 +118,6 @@ int main() {
 //         {I, I, I, I, I, I, I, 8, I, I, 4, 0, 1},
 //         {I, I, I, I, I, I, I, 8, I, I, 4, 1, 0}
 //     };
-    int graph[N][N];
     routeToGraph(route, graph);
     string names[N] = { "580门", "五教", "光电楼", "图书馆", "计算中心", "三公寓", "五食堂", "毛像", "一教", "516门", "334门", "操场", "思餐厅" };
 
