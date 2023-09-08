@@ -1,26 +1,27 @@
-﻿#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
 #define I 999999 // INF
 #define R 21 // Routes
 #define N 13 // Nodes
 
-#pragma warning(disable : 4996)
-
-void printPath(int prev[], int i, char* names[]) {
+void printPath(int prev[], int i, string names[]) {
     if (i == -1) {
         return;
     }
     printPath(prev, prev[i], names);
     if (prev[i] != -1) {
-		printf(" -> ");
+        cout << " -> ";
 	}
-    printf("%s", names[i]);
+    cout << names[i];
 }
 
-void printDepartments(char* names[N]) {
-    printf("部门:\n");
+void printDepartments(string names[N]) {
+    cout << "部门:" << endl;
     for (int i = 0; i < N; i++) {
-        printf("%d. %s\n", i + 1, names[i]);
+        cout << i+1 << ". " << names[i] << endl;
     }
 }
 
@@ -40,7 +41,7 @@ void routeToGraph(int route[R][3], int graph[N][N]) {
     }
 }
 
-void dijkstra(int graph[N][N], int start, char* names[N]) {
+void dijkstra(int graph[N][N], int start, string names[N]) {
     int dist[N];
     int prev[N];
     int visited[N] = { 0 };
@@ -69,11 +70,11 @@ void dijkstra(int graph[N][N], int start, char* names[N]) {
             }
         }
     }
-    printf("%-24s\t距离\t\t路径\n", "顶点");
-    for (i = 0; i < N; i++) {
-        printf("%-24s\t%d\t\t", names[i], dist[i]);
+    cout << left << setw(24) << "顶点" << "\t距离\t\t路径\n";
+    for (i = 0; i < N; i++) {\
+        cout << left << setw(24) << names[i] << "\t" << dist[i] << "\t\t";
         printPath(prev, i, names);
-        printf("\n");
+        cout << endl;
     }
 }
 
@@ -101,41 +102,43 @@ int main() {
         {10, 12, 4},
         {11, 12, 1}
     };
-    // int graph[N][N] = {
-    //     {0, 2, 6, I, I, I, I, I, I, 1, I, I, I},
-    //     {2, 0, 5, I, I, I, I, I, I, I, I, I, I},
-    //     {6, 5, 0, 3, 3, 4, I, 5, I, I, I, I, I},
-    //     {I, I, 3, 0, 1, 2, I, I, I, I, I, I, I},
-    //     {I, I, 3, 1, 0, 2, I, I, I, I, I, I, I},
-    //     {I, I, 4, 2, 2, 0, 1, 5, I, I, I, I, I},
-    //     {I, I, I, I, I, 1, 0, I, I, I, I, I, I},
-    //     {I, I, 5, I, I, 5, I, 0, 2, I, I, 8, 8},
-    //     {I, I, I, I, I, I, I, 2, 0, 5, I, I, I},
-    //     {1, I, I, I, I, I, I, I, 5, 0, 4, I, I},
-    //     {I, I, I, I, I, I, I, I, I, 4, 0, 4, 4},
-    //     {I, I, I, I, I, I, I, 8, I, I, 4, 0, 1},
-    //     {I, I, I, I, I, I, I, 8, I, I, 4, 1, 0}
-    // };
+//     int graph[N][N] = {
+//         {0, 2, 6, I, I, I, I, I, I, 1, I, I, I},
+//         {2, 0, 5, I, I, I, I, I, I, I, I, I, I},
+//         {6, 5, 0, 3, 3, 4, I, 5, I, I, I, I, I},
+//         {I, I, 3, 0, 1, 2, I, I, I, I, I, I, I},
+//         {I, I, 3, 1, 0, 2, I, I, I, I, I, I, I},
+//         {I, I, 4, 2, 2, 0, 1, 5, I, I, I, I, I},
+//         {I, I, I, I, I, 1, 0, I, I, I, I, I, I},
+//         {I, I, 5, I, I, 5, I, 0, 2, I, I, 8, 8},
+//         {I, I, I, I, I, I, I, 2, 0, 5, I, I, I},
+//         {1, I, I, I, I, I, I, I, 5, 0, 4, I, I},
+//         {I, I, I, I, I, I, I, I, I, 4, 0, 4, 4},
+//         {I, I, I, I, I, I, I, 8, I, I, 4, 0, 1},
+//         {I, I, I, I, I, I, I, 8, I, I, 4, 1, 0}
+//     };
     int graph[N][N];
     routeToGraph(route, graph);
-    char* names[N] = { "580门", "五教", "光电楼", "图书馆", "计算中心", "三公寓", "五食堂", "毛像", "一教", "516门", "334门", "操场", "思餐厅" };
+    string names[N] = { "580门", "五教", "光电楼", "图书馆", "计算中心", "三公寓", "五食堂", "毛像", "一教", "516门", "334门", "操场", "思餐厅" };
 
     int choice;
-    while (1) {
+    while (true) {
         system("cls");
-        printf("菜单:\n1. 查询部门信息\n2. 获取校门到各部门的最佳路线\n3. 退出\n");
-        printf("请输入你的选择: ");
-        scanf("%d", &choice);
-        while ((getchar()) != '\n');
+        cout << "菜单:" << endl;
+        cout << "1. 查询部门信息" << endl;
+        cout << "2. 获取校门到各部门的最佳路线" << endl;
+        cout << "3. 退出" << endl;
+        cout << "请输入你的选择: ";
+        cin >> choice;
         switch (choice) {
         case 1:
             printDepartments(names);
             break;
         case 2:
-            printf("1. 580门, 2. 516门, 3. 334门\n选择校门: ");
+            cout << "1. 580门, 2. 516门, 3. 334门" << endl;
+            cout << "选择校门: ";
             int gate;
-            scanf("%d", &gate);
-            while ((getchar()) != '\n');
+            cin >> gate;
             switch (gate) {
             case 1:
                 dijkstra(graph, 0, names); // 580 Gate
@@ -147,15 +150,14 @@ int main() {
                 dijkstra(graph, 10, names); // 334 Gate
                 break;
             default:
-                printf("无效的选择. 请重新输入.\n");
+                cout << "无效的选择. 请重新输入." << endl;
             }
             break;
         case 3:
             return 0;
         default:
-            printf("无效的选择. 请重新输入.\n");
+            cout << "无效的选择. 请重新输入." << endl;
         }
         system("pause");
     }
-    return 0;
 }
