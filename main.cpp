@@ -50,9 +50,17 @@ void routeToGraph(int route[R][3], int graph[N][N]) {
     }
 }
 
-void dijkstra(int graph[N][N], int start, string names[N]) {
-    int dist[N];
-    int prev[N];
+int** dijkstra(int graph[N][N], int start, string names[N]) {
+    /**
+     * Dijkstra's Algorithm: Calculates the shortest paths from a given start vertex to other vertices
+     *
+     * @param graph Adjacency matrix of the graph.
+     * @param start Start vertex.
+     * @param names Vertex names.
+     * @return [dist, prev] dist: The shortest distances from the start vertex to other vertices. prev: The previous vertex of each vertex in the shortest path.
+     */
+    int* dist = new int[N];
+    int* prev = new int[N];
     int visited[N] = { 0 };
     int i, j;
     for (i = 0; i < N; i++) {
@@ -79,7 +87,10 @@ void dijkstra(int graph[N][N], int start, string names[N]) {
             }
         }
     }
-    printPaths(prev, dist, names);
+    int** result = new int*[2];
+    result[0] = dist;
+    result[1] = prev;
+    return result;
 }
 
 int main() {
@@ -143,15 +154,33 @@ int main() {
             cout << "选择校门: ";
             int gate;
             cin >> gate;
+            int* dist;
+            int* prev;
+            int** result;
             switch (gate) {
             case 1:
-                dijkstra(graph, 0, names); // 580 Gate
+                result = dijkstra(graph, 0, names); // 580 Gate
+                dist = result[0];
+                prev = result[1];
+                printPaths(prev, dist, names);
+                delete[] dist;
+                delete[] prev;
                 break;
             case 2:
-                dijkstra(graph, 9, names); // 516 Gate
+                result = dijkstra(graph, 9, names); // 516 Gate
+                dist = result[0];
+                prev = result[1];
+                printPaths(prev, dist, names);
+                delete[] dist;
+                delete[] prev;
                 break;
             case 3:
-                dijkstra(graph, 10, names); // 334 Gate
+                result = dijkstra(graph, 10, names); // 334 Gate
+                dist = result[0];
+                prev = result[1];
+                printPaths(prev, dist, names);
+                delete[] dist;
+                delete[] prev;
                 break;
             default:
                 cout << "无效的选择. 请重新输入." << endl;
