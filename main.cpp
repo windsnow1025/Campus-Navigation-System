@@ -25,6 +25,15 @@ void printDepartments(string names[N]) {
     }
 }
 
+void printPaths(int prev[], int dist[], string names[N]) {
+    cout << left << setw(24) << "顶点" << "\t距离\t\t路径\n";
+    for (int i = 0; i < N; i++) {\
+        cout << left << setw(24) << names[i] << "\t" << dist[i] << "\t\t";
+        printPath(prev, i, names);
+        cout << endl;
+    }
+}
+
 void routeToGraph(int route[R][3], int graph[N][N]) {
     int i, j;
     for (i = 0; i < N; i++) {
@@ -70,12 +79,7 @@ void dijkstra(int graph[N][N], int start, string names[N]) {
             }
         }
     }
-    cout << left << setw(24) << "顶点" << "\t距离\t\t路径\n";
-    for (i = 0; i < N; i++) {\
-        cout << left << setw(24) << names[i] << "\t" << dist[i] << "\t\t";
-        printPath(prev, i, names);
-        cout << endl;
-    }
+    printPaths(prev, dist, names);
 }
 
 int main() {
